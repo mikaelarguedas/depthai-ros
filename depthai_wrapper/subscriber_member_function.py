@@ -22,7 +22,7 @@ import msgpack_numpy as m
 import numpy as np
 
 from depthai_helpers.config_manager import DepthConfigManager
-from depthai_helpers.arg_manager import SharedArgs, CliArgs
+from depthai_helpers.arg_manager import CliArgs
 
 from rclpy.node import Node
 from rcl_interfaces.msg import Parameter
@@ -161,10 +161,10 @@ class DepthAISubscriber(Node):
     def preview_callback(self, msg):
         serializedFrame = bytearray(msg.data)
         frame = msgpack.unpackb(serializedFrame, object_hook=m.decode)
-
-        nn_frame = self.configMan.show_nn(self.meta, frame, labels=self.configMan.labels, config=self.configMan.jsonConfig)
-        cv2.imshow(self.previewSubName, nn_frame)
-        key = cv2.waitKey(1)
+        if self.meta:
+            nn_frame = self.configMan.show_nn(self.meta, frame, labels=self.configMan.labels, NN_json=self.configMan.NN_config, config=self.configMan.jsonConfig)
+            cv2.imshow(self.previewSubName, nn_frame)
+            key = cv2.waitKey(1)
 
     def left_callback(self, msg):
         self.left_right_disparity_callback(msg, self.leftSubName)
@@ -187,7 +187,9 @@ class DepthAISubscriber(Node):
                         camera = 'right'
                 elif camera != 'rgb':
                     camera = packet.getMetadata().getCameraName()
-                self.configMan.show_nn(self.meta, frame, labels=self.configMan.labels, config=self.configMan.jsonConfig)
+
+                if self.meta:
+                    self.configMan.show_nn(self.meta, frame, labels=self.configMan.labels, NN_json=self.configMan.NN_config, config=self.configMan.jsonConfig)
 
             cv2.imshow(streamName, frame)
             key = cv2.waitKey(1)
@@ -212,7 +214,8 @@ class DepthAISubscriber(Node):
             camera = self.args['cnn_camera']
             if camera == 'left_right':
                 camera = 'right'
-            self.configMan.show_nn(self.meta, frame, labels=self.configMan.labels, config=self.configMan.jsonConfig, nn2depth=self.nn2depth)
+            if self.meta:
+                self.configMan.show_nn(self.meta, frame, labels=self.configMan.labels, NN_json=self.configMan.NN_config, config=self.configMan.jsonConfig, nn2depth=self.nn2depth)
         cv2.imshow(self.depthSubName, frame)
         key = cv2.waitKey(1)
 
@@ -226,6 +229,9 @@ class DepthAISubscriber(Node):
             ' DSS:' + '{:6.2f}'.format(dict_['sensors']['temperature']['upa1']))
 
     def meta_callback(self, msg):
+        # TODO: probably want to add something smarter to handle these cases within valid data.
+        msg.data = msg.data.replace("\'", "\"")
+        msg.data = msg.data.replace(": None", ": \"None\"")
         self.meta = json.loads(msg.data)
 
 

@@ -41,7 +41,7 @@ from depthai_helpers.cli_utils import cli_print, PrintColors
 from depthai_helpers.object_tracker_handler import show_tracklets
 
 from depthai_helpers.config_manager import DepthConfigManager
-from depthai_helpers.arg_manager import SharedArgs, CliArgs
+from depthai_helpers.arg_manager import CliArgs
 
 
 
@@ -149,7 +149,7 @@ class DepthAIPublisher(Node):
                 if meta != None:
                     camera = meta.getCameraName()
 
-                serializedEntry = self.decode_nn_json(nnet_packet, config=self.config)
+                serializedEntry = self.decode_nn(nnet_packet, config=self.config, NN_json=self.NN_json)
 
                 self.nnmsg.data = str(serializedEntry)
                 self.nnResultPublisher.publish(self.nnmsg)
@@ -270,6 +270,7 @@ class DepthAIPublisher(Node):
         self.decode_nn_json = configMan.decode_nn_json
         self.show_nn = configMan.show_nn
         self.labels = configMan.labels
+        self.NN_json = configMan.NN_config
 
         # This json file is sent to DepthAI. It communicates what options you'd like to enable and what model you'd like to run.
         self.config = configMan.jsonConfig
