@@ -12,7 +12,7 @@ Also note that this example depends on changes on the develop_merge_config_manag
 2. Switch to the develop_merge_config_manager branch and install DepthAI dependencies. 
 ```
 cd depthai
-git checkout develop_merge_config_manager
+git checkout develop
 python3 -m pip install -r requirements.txt
 ```
 
@@ -45,12 +45,25 @@ colcon build --packages-select depthai_wrapper
 ros2 run depthai_wrapper talker --ros-args -p cliArgs:="-dev list"
 ```
 
-8. Run the depthai_wrapper talker. This will create topics you can subscribe to and get depthai results. Not all topics are complete but I think you probably only care about the meta topic and maybe the preview. Both of those should work. Note that you can use the stock mobilenet_ssd if you leave off “-cnn kartDetection”.
+8. Run the depthai_wrapper talker. This will create topics you can subscribe to and get depthai results. Not all topics are complete but I think you probably only care about the meta topic and maybe the preview. Both of those should work. 
 ```
+# Note that each new console needs the following to setup the environment. It only needs to be run once per console:
+source /opt/ros/eloquent/setup.bash
+cd <your-ros-workspace>
+. install/setup.bash
+export PYTHONPATH=$PYTHONPATH:<depthai-dir>
+
+# To start the talker example
 ros2 run depthai_wrapper talker --ros-args -p cliArgs:="-dev <devId>"
 ```
 
 9. Run the demo listener if you want an example of how to receive our topics.
 ```
+# Note that each new console needs the following to setup the environment. It only needs to be run once per console:source /opt/ros/eloquent/setup.bash
+cd <your-ros-workspace>
+. install/setup.bash
+export PYTHONPATH=$PYTHONPATH:<depthai-dir>
+
+# To start the reciever example
 ros2 run depthai_wrapper demoListen --ros-args -p cliArgs:="-dev <devId>"
 ```
