@@ -7,13 +7,12 @@ Also note that this example depends on changes on the develop_merge_config_manag
 ## Setup Instructions
 1. Clone our DepthAI github.
 
-`git clone git@github.com:luxonis/depthai.git`
+`git clone git@github.com:luxonis/depthai.git --branch master`
 
 2. Switch to the develop_merge_config_manager branch and install DepthAI dependencies. 
 ```
 cd depthai
-git checkout develop
-python3 -m pip install -r requirements.txt
+python3  install_requirements.py
 ```
 
 3. Add the depthai directory to PYTHONPATH. You can also add it to your .bashrc file to skip this each time you open a new shell.
