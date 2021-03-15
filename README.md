@@ -1,4 +1,4 @@
-# DepthAI ROS2 Wrapper
+# DepthAI GEN1 ROS2 Wrapper
 
 This is an attempt at basic DepthAI to ROS2 interface. It's largely leveraging the existing depthai python demo on https://github.com/luxonis/depthai. 
 
