@@ -189,18 +189,28 @@ For more examples please check the launch files.
 
 ## Running Examples
 
-### Depthai Ros Driver:
+### Depthai ROS Driver:
 #### Default camera:
-```roslaunch depthai_ros_driver camera.launch`
+```
+roslaunch depthai_ros_driver camera.launch
+```
 #### RGBD camera:
-```roslaunch depthai_ros_driver rgbd_pcl.launch`
+```
+roslaunch depthai_ros_driver rgbd_pcl.launch
+```
 #### Segmentation:
-```roslaunch depthai_ros_driver example_segmentation.launch`
+```
+roslaunch depthai_ros_driver example_segmentation.launch
+```
 #### Multi-camera example:
 First, add mx_ids,IPs to the config file (see config/multicam.yaml for reference)
-```roslaunch depthai_ros_driver example_multicam.launch`
+```
+roslaunch depthai_ros_driver example_multicam.launch
+```
 #### Basic Pointcloud (no RGB)
-```roslaunch depthai_ros_driver pointcloud.launch```
+```
+roslaunch depthai_ros_driver pointcloud.launch
+```
 
 
 ### Mobilenet Publisher:
@@ -220,18 +230,28 @@ roslaunch depthai_examples mobile_publisher.launch | rqt_image_view -t /mobilene
 
 #### ROS2:
 
-### Depthai Ros Driver:
+### Depthai ROS Driver:
 #### Default camera:
-```ros2 launch depthai_ros_driver camera.launch.py`
+```
+ros2 launch depthai_ros_driver camera.launch.py
+```
 #### RGBD camera:
-```ros2 launch depthai_ros_driver rgbd_pcl.launch.py`
+```
+ros2 launch depthai_ros_driver rgbd_pcl.launch.py
+```
 #### Segmentation:
-```ros2 launch depthai_ros_driver example_segmentation.launch.py`
+```
+ros2 launch depthai_ros_driver example_segmentation.launch.py
+```
 #### Multi-camera example:
 First, add mx_ids,IPs to the config file (see config/multicam.yaml for reference)
-```ros2 launch depthai_ros_driver example_multicam.launch.py`
+```
+ros2 launch depthai_ros_driver example_multicam.launch.py
+```
 #### Basic Pointcloud (no RGB)
-```ros2 launch depthai_ros_driver pointcloud.launch.py```
+```
+ros2 launch depthai_ros_driver pointcloud.launch.py
+```
 
 
 ##### OAK-D
